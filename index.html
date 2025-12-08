@@ -398,6 +398,38 @@
       cursor: pointer;
     }
 
+    /* Fade-in labels pointing to Jofre */
+    .jofre-label {
+      position: absolute;
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fff;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 60;
+    }
+
+    .jofre-label.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* approximate positions; tweak if needed */
+    .jofre-soldier-position {
+      top: 36%;
+      left: 54%;
+    }
+
+    .jofre-casaus-position {
+      top: 40%;
+      left: 32%;
+    }
+
     @media (max-width: 768px) {
       .hero-top {
         flex-direction: column;
@@ -674,8 +706,17 @@
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
     <div class="lightbox-close" id="lightboxClose">&times;</div>
-    <div class="lightbox-inner">
+    <div class="lightbox-inner" style="position:relative;">
       <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+
+      <!-- Labels that fade in to point at Jofre -->
+      <div id="labelSoldier" class="jofre-label jofre-soldier-position">
+        This is Jofre →
+      </div>
+      <div id="labelCasaus" class="jofre-label jofre-casaus-position">
+        This is Jofre →
+      </div>
+
       <div id="lightboxCaption" class="lightbox-caption"></div>
     </div>
   </div>
@@ -684,7 +725,7 @@
   <audio id="bgMusic" src="assets/bg-music.mp3" loop></audio>
 
   <script>
-    // Lightbox for images
+    // Lightbox for images + Jofre labels
     (function () {
       const buttons = document.querySelectorAll(".image-button");
       const lightbox = document.getElementById("lightbox");
@@ -692,13 +733,33 @@
       const lightboxCaption = document.getElementById("lightboxCaption");
       const lightboxClose = document.getElementById("lightboxClose");
 
+      const labelSoldier = document.getElementById("labelSoldier");
+      const labelCasaus = document.getElementById("labelCasaus");
+
+      function hideLabels() {
+        labelSoldier.classList.remove("visible");
+        labelCasaus.classList.remove("visible");
+      }
+
       buttons.forEach(btn => {
         btn.addEventListener("click", () => {
           const full = btn.getAttribute("data-full");
           const caption = btn.getAttribute("data-caption") || "";
+
           lightboxImg.src = full;
           lightboxCaption.textContent = caption;
+          hideLabels();
           lightbox.classList.add("visible");
+
+          // Show the correct label after image is visible
+          setTimeout(() => {
+            if (full.includes("jofre-soldier3")) {
+              labelSoldier.classList.add("visible");
+            }
+            if (full.includes("nicolas1")) {
+              labelCasaus.classList.add("visible");
+            }
+          }, 250);
         });
       });
 
@@ -706,6 +767,7 @@
         lightbox.classList.remove("visible");
         lightboxImg.src = "";
         lightboxCaption.textContent = "";
+        hideLabels();
       }
 
       lightboxClose.addEventListener("click", closeLightbox);
@@ -748,7 +810,7 @@
       });
     })();
 
-    // 5-minute timer
+    // 10-minute timer
     (function () {
       const startBtn = document.getElementById("startTimer");
       const display = document.getElementById("timerDisplay");
