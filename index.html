@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <title>Jofre Folch – Life Timeline</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="One-page timeline of Jofre Folch's life and career." />
+  <meta name="description" content="One-page interactive timeline of Jofre Folch's life and career." />
   <style>
     :root {
-      --bg: #0f172a;
-      --bg-alt: #020617;
-      --card: #111827;
+      --bg: #020617;
+      --card: #020617;
       --accent: #38bdf8;
       --accent2: #f97316;
       --text: #e5e7eb;
       --muted: #9ca3af;
       --radius-lg: 18px;
       --radius-full: 999px;
-      --max-width: 1080px;
+      --max-width: 1180px;
       --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
     }
 
@@ -29,18 +28,13 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: radial-gradient(circle at top, #1e293b 0, #020617 50%, #000 100%);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* Layout */
+    a { color: inherit; text-decoration: none; }
 
     .page {
       min-height: 100vh;
@@ -50,10 +44,7 @@
       padding: 32px 16px 64px;
     }
 
-    .container {
-      width: 100%;
-      max-width: var(--max-width);
-    }
+    .container { width: 100%; max-width: var(--max-width); }
 
     header.hero {
       text-align: center;
@@ -70,7 +61,7 @@
     .hero-subtitle {
       font-size: 0.95rem;
       color: var(--muted);
-      max-width: 620px;
+      max-width: 820px;
       margin: 0 auto 20px;
     }
 
@@ -112,10 +103,10 @@
       border: 1px solid rgba(55, 65, 81, 0.7);
     }
 
-    /* Timeline wrapper */
+    /* TIMELINE WRAPPER */
 
     .timeline-wrapper {
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(15, 23, 42, 0.96);
       border-radius: 26px;
       border: 1px solid rgba(148, 163, 184, 0.2);
       box-shadow: var(--shadow-soft);
@@ -165,49 +156,90 @@
       background: var(--accent2);
     }
 
+    /* ARROWS */
+
+    .timeline-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 1.2rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.8);
+      transition: background 0.2s, transform 0.2s, color 0.2s, border-color 0.2s;
+      z-index: 5;
+    }
+
+    .timeline-arrow:hover {
+      background: rgba(56, 189, 248, 0.15);
+      color: #e5e7eb;
+      border-color: rgba(56, 189, 248, 0.8);
+      transform: translateY(-50%) scale(1.03);
+    }
+
+    .timeline-arrow--left { left: 6px; }
+    .timeline-arrow--right { right: 6px; }
+
     /* Horizontal scroll area */
 
     .timeline-scroll {
       overflow-x: auto;
       padding-bottom: 10px;
       margin: 0 -6px;
+      scrollbar-width: thin;
+    }
+
+    .timeline-scroll::-webkit-scrollbar { height: 8px; }
+    .timeline-scroll::-webkit-scrollbar-track { background: #020617; }
+    .timeline-scroll::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 999px;
     }
 
     .timeline {
       display: flex;
       gap: 20px;
       padding: 4px 4px 12px;
-      min-width: 640px;
+      min-width: 720px;
     }
 
     .timeline-item {
-      background: linear-gradient(145deg, #020617, #020617 40%, #0b1120 100%);
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #020617 100%);
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.28);
       padding: 14px 14px 16px;
-      min-width: 220px;
+      min-width: 250px;
       max-width: 260px;
       position: relative;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      transition: transform 0.22s ease, box-shadow 0.22s ease,
-        border-color 0.22s ease, background 0.22s ease;
+      transition: transform 0.22s, box-shadow 0.22s,
+                  border-color 0.22s, background 0.22s;
     }
 
     .timeline-item:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 38px rgba(15, 23, 42, 0.9);
-      border-color: rgba(249, 115, 22, 0.75);
-      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #020617 100%);
+      border-color: rgba(249, 115, 22, 0.85);
+      background: radial-gradient(circle at top, #1f2937 0, #020617 60%, #020617 100%);
     }
 
     .timeline-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: space-between;
       font-size: 0.75rem;
       color: var(--muted);
+      gap: 6px;
     }
 
     .badge-pill {
@@ -227,6 +259,7 @@
       background: rgba(30, 64, 175, 0.3);
       border: 1px solid rgba(59, 130, 246, 0.6);
       font-size: 0.7rem;
+      white-space: nowrap;
     }
 
     .icon-circle {
@@ -241,13 +274,15 @@
       color: #e0f2fe;
       box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.5),
                   0 12px 24px rgba(15, 23, 42, 0.9);
+      margin-top: 2px;
     }
 
     .timeline-title {
       font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+      font-weight: 800;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
+      margin-top: 4px;
     }
 
     .timeline-location {
@@ -266,9 +301,28 @@
       font-size: 0.8rem;
       color: var(--muted);
       margin-top: 2px;
+      font-weight: 600;
     }
 
-    /* Footer */
+    .timeline-media {
+      width: 100%;
+      height: 150px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .timeline-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.1);
+      transition: transform 0.25s ease;
+    }
+
+    .timeline-item:hover .timeline-media img { transform: scale(1.04); }
 
     footer {
       margin-top: 26px;
@@ -284,36 +338,14 @@
       text-decoration-thickness: 1px;
     }
 
-    /* Small screens: stack layout */
-
     @media (max-width: 720px) {
-      .page {
-        padding: 24px 12px 40px;
-      }
-
-      .timeline-wrapper {
-        padding: 18px 14px 18px;
-      }
-
-      .timeline {
-        flex-direction: column;
-        min-width: 0;
-      }
-
-      .timeline-item {
-        width: 100%;
-        max-width: none;
-      }
-
-      .timeline-scroll {
-        margin: 0;
-        padding-bottom: 0;
-        overflow-x: visible;
-      }
-
-      .hero-meta {
-        padding: 0 8px;
-      }
+      .page { padding: 24px 12px 40px; }
+      .timeline-wrapper { padding: 18px 14px 18px; }
+      .timeline { flex-direction: column; min-width: 0; }
+      .timeline-item { width: 100%; max-width: none; }
+      .timeline-scroll { margin: 0; padding-bottom: 0; overflow-x: visible; }
+      .timeline-arrow { display: none; }
+      .hero-meta { padding: 0 8px; }
     }
   </style>
 </head>
@@ -328,189 +360,223 @@
         </div>
         <h1 class="hero-title">From Gran Vía to Generative AI</h1>
         <p class="hero-subtitle">
-          A visual one-pager mapping key moments in my life – from a room in
-          Madrid and Barça’s backstage stories to entrepreneurship, AXA,
-          analytics and AI.
+          A flat timeline of my life – from a unique birth in Madrid and early years at the American School of Barcelona,
+          to army, university, entrepreneurship, Maradona, family, and the AXA &amp; AI chapter.
         </p>
         <div class="hero-meta">
           <span>📍 Barcelona · Global mindset</span>
           <span>📊 Analytics · AI · Strategy</span>
-          <span>🎓 Professor & lifelong learner</span>
+          <span>🎓 Professor &amp; lifelong learner</span>
         </div>
       </header>
 
       <!-- TIMELINE -->
       <section class="timeline-wrapper" aria-label="Life timeline">
+        <button class="timeline-arrow timeline-arrow--left" type="button" aria-label="Scroll timeline left">‹</button>
+        <button class="timeline-arrow timeline-arrow--right" type="button" aria-label="Scroll timeline right">›</button>
+
         <div class="timeline-header">
           <h2>Timeline</h2>
           <div class="legend">
             <span><span class="legend-dot"></span> Key milestone</span>
-            <span>Scroll horizontally on desktop →</span>
+            <span>Use arrows or scroll →</span>
           </div>
         </div>
 
-        <div class="timeline-scroll">
+        <div class="timeline-scroll" id="timelineScroll">
           <div class="timeline">
             <!-- 01 Origins -->
             <article class="timeline-item">
               <div class="timeline-badge">
-                <span class="badge-pill">01</span>
-                <span class="year-pill">Gran Vía, Madrid</span>
+                <span class="badge-pill">01 · Origins</span>
+                <span class="year-pill">Birth</span>
               </div>
               <div class="icon-circle">🏨</div>
-              <div>
-                <p class="timeline-title">Origins</p>
-                <p class="timeline-location">Hotel Rex · Room 301</p>
-              </div>
+              <p class="timeline-title">Origins</p>
+              <p class="timeline-location">Hotel Rex · Gran Vía</p>
               <p class="timeline-text">
-                My story begins in Room 301 of the Hotel Rex on Gran Vía —
-                a very unconventional but unforgettable starting point.
+                A unique beginning: conceived at the Hotel Rex on Gran Vía, Madrid.
+                Born in Barcelona, but with Room 301 as the unofficial prologue to my story.
               </p>
-              <p class="tagline">An unusual prologue.</p>
+              <p class="tagline">“A unique beginning.”</p>
+              <div class="timeline-media">
+                <!-- Hotel Rex photo -->
+                <img src="assets/origins-hotel.jpg" alt="Hotel Rex on Gran Vía, Madrid" />
+              </div>
             </article>
 
-            <!-- 02 Barça / Cruyff / Maradona -->
+            <!-- 02 Early Years -->
             <article class="timeline-item">
               <div class="timeline-badge">
-                <span class="badge-pill">02</span>
-                <span class="year-pill">Barcelona</span>
+                <span class="badge-pill">02 · Early Years</span>
+                <span class="year-pill">ASB</span>
               </div>
-              <div class="icon-circle">⚽</div>
-              <div>
-                <p class="timeline-title">Barça Years</p>
-                <p class="timeline-location">Childhood · American School</p>
-              </div>
+              <div class="icon-circle">🏫</div>
+              <p class="timeline-title">Early Years</p>
+              <p class="timeline-location">American School of Barcelona</p>
               <p class="timeline-text">
-                Grew up at the American School of Barcelona, sharing hallways
-                with Johan Cruyff’s children while my father, involved in
-                Barça’s opposition, discussed Maradona’s historic signing
-                with vice president Nicolau Casaus.
+                Childhood at the American School of Barcelona, growing up in an
+                international environment while Barça and Johan Cruyff were quietly
+                shaping the culture around me.
               </p>
-              <p class="tagline">Football, politics and legends in the background.</p>
+              <p class="tagline">“Childhood at ASB.”</p>
+              <div class="timeline-media">
+                <!-- American School building -->
+                <img src="assets/asb.jpg" alt="American School of Barcelona" />
+              </div>
             </article>
 
-            <!-- 03 Wisconsin -->
+            <!-- 03 Army -->
             <article class="timeline-item">
               <div class="timeline-badge">
-                <span class="badge-pill">03</span>
-                <span class="year-pill">Wisconsin · USA</span>
-              </div>
-              <div class="icon-circle">✈️</div>
-              <div>
-                <p class="timeline-title">Exchange Year</p>
-                <p class="timeline-location">Prairie School · Racine</p>
-              </div>
-              <p class="timeline-text">
-                Spent fifth grade in Wisconsin, discovering snow, American
-                culture and how different the same world can look from another
-                latitude.
-              </p>
-              <p class="tagline">First real contact with a bigger world.</p>
-            </article>
-
-            <!-- 04 Army -->
-            <article class="timeline-item">
-              <div class="timeline-badge">
-                <span class="badge-pill">04</span>
+                <span class="badge-pill">03 · Army</span>
                 <span class="year-pill">Military Service</span>
               </div>
               <div class="icon-circle">🎖️</div>
-              <div>
-                <p class="timeline-title">Discipline & Duty</p>
-                <p class="timeline-location">Military Police</p>
-              </div>
+              <p class="timeline-title">Army</p>
+              <p class="timeline-location">Military Police</p>
               <p class="timeline-text">
-                Two intense years in the army as part of the military police,
-                responsible both for order and for the kitchen &amp; canteen.
-                Learned discipline, leadership and a “very particular set of skills”.
+                Two years in the Military Police: discipline, leadership and
+                life-shaping skills, combining security duties with the very
+                practical responsibility of the kitchen and canteen.
               </p>
-              <p class="tagline">Responsibility forged under pressure.</p>
+              <p class="tagline">“Discipline & service.”</p>
+              <div class="timeline-media">
+                <img src="assets/jofre-soldier3.jpg" alt="Jofre Folch during military service" />
+              </div>
             </article>
 
-            <!-- 05 Beloit & ghosts & Hollywood -->
+            <!-- 04 University -->
             <article class="timeline-item">
               <div class="timeline-badge">
-                <span class="badge-pill">05</span>
-                <span class="year-pill">Beloit · Chicago</span>
+                <span class="badge-pill">04 · University</span>
+                <span class="year-pill">Beloit College</span>
               </div>
               <div class="icon-circle">🎓</div>
-              <div>
-                <p class="timeline-title">College & Stories</p>
-                <p class="timeline-location">Beloit College</p>
-              </div>
+              <p class="timeline-title">University</p>
+              <p class="timeline-location">BBA · Liberal Arts</p>
               <p class="timeline-text">
-                Studied Economics at Beloit, lived in a haunted apartment,
-                met young Hollywood actors around Chicago’s Division Street and
-                explored the stranger corners of the Midwest.
+                Studied at Beloit College in the U.S., completing a BBA in a liberal
+                arts environment that blended economics, storytelling and a very
+                global view of the world.
               </p>
-              <p class="tagline">Between ghosts, cinema and economics.</p>
+              <p class="tagline">“BBA in a Liberal Arts College.”</p>
+              <div class="timeline-media">
+                <img src="assets/beloit.jpg" alt="Beloit College student card of Jofre Folch" />
+              </div>
             </article>
 
-            <!-- 06 Entrepreneurship -->
+            <!-- 05 Company / Entrepreneurship -->
             <article class="timeline-item">
               <div class="timeline-badge">
-                <span class="badge-pill">06</span>
-                <span class="year-pill">Entrepreneur Era</span>
+                <span class="badge-pill">05 · Company</span>
+                <span class="year-pill">Entrepreneurship</span>
               </div>
               <div class="icon-circle">💼</div>
-              <div>
-                <p class="timeline-title">First Company</p>
-                <p class="timeline-location">MRI &amp; Localization</p>
-              </div>
+              <p class="timeline-title">Company</p>
+              <p class="timeline-location">Tech Translation</p>
               <p class="timeline-text">
-                Founded a tech-translation company focused on machine-readable
-                information for IBM, Philips, Schneider and others, growing to
-                20 employees and traveling between IBM labs worldwide.
+                Founded a tech-translation company working with IBM, Philips and
+                Schneider; grew to 20 employees and travelled constantly between
+                language labs and corporate campuses.
               </p>
-              <p class="tagline">When business, language and tech met.</p>
+              <p class="tagline">“From startup to 20-person team.”</p>
+              <div class="timeline-media">
+                <img src="assets/ibm-logo.png" alt="IBM logo representing first company clients" />
+              </div>
             </article>
 
-            <!-- 07 Fatherhood & Executive -->
+            <!-- 06 Maradona Connection -->
             <article class="timeline-item">
               <div class="timeline-badge">
-                <span class="badge-pill">07</span>
-                <span class="year-pill">Family & Marketing</span>
+                <span class="badge-pill">06 · Maradona</span>
+                <span class="year-pill">FC Barcelona</span>
+              </div>
+              <div class="icon-circle">⚽</div>
+              <p class="timeline-title">Maradona Connection</p>
+              <p class="timeline-location">Barça · Nicolau Casaus</p>
+              <p class="timeline-text">
+                A special link to Barça history: the signing of Maradona through
+                vice president Nicolau Casaus, with whom my family had direct
+                contact and conversations in the club’s inner circle.
+              </p>
+              <p class="tagline">“Maradona signing through VP Nicolau Casaus.”</p>
+              <div class="timeline-media">
+                <img src="assets/nicolas2-maradona.avif"
+                     alt="Photo related to Maradona and FC Barcelona" />
+              </div>
+            </article>
+
+            <!-- 07 Family & Career -->
+            <article class="timeline-item">
+              <div class="timeline-badge">
+                <span class="badge-pill">07 · Family &amp; Career</span>
+                <span class="year-pill">Executive Path</span>
               </div>
               <div class="icon-circle">👨‍👦</div>
-              <div>
-                <p class="timeline-title">Family & Leadership</p>
-                <p class="timeline-location">Intel · SEAT · Nestlé</p>
-              </div>
+              <p class="timeline-title">Family &amp; Career</p>
+              <p class="timeline-location">Fatherhood &amp; Executive Career</p>
               <p class="timeline-text">
-                Got married, became father of two and led digital and analytics
-                projects for major brands such as Intel, SEAT and Nestlé, while
-                building a new consultancy focused on data &amp; performance.
+                Became a father, created a Digital Agency and worked for brands
+                like Intel, SEAT and Nestlé. At home, family life (and Luc) became
+                the perfect counterbalance to high-intensity projects.
               </p>
-              <p class="tagline">Balancing home, clients and growth.</p>
+              <p class="tagline">“Digital director for leading brands.”</p>
+              <div class="timeline-media">
+                <img src="assets/luc2.jpg" alt="Luc, Jofre Folch's dog" />
+              </div>
             </article>
 
-            <!-- 08 AXA, AI & Teaching -->
+            <!-- 08 Present -->
             <article class="timeline-item">
               <div class="timeline-badge">
-                <span class="badge-pill">08</span>
-                <span class="year-pill">Present</span>
+                <span class="badge-pill">08 · Present</span>
+                <span class="year-pill">AXA · AI &amp; Teaching</span>
               </div>
               <div class="icon-circle">🤖</div>
-              <div>
-                <p class="timeline-title">AXA, AI & Teaching</p>
-                <p class="timeline-location">Analytics · GenAI · Agentic</p>
-              </div>
+              <p class="timeline-title">Present</p>
+              <p class="timeline-location">AXA, AI &amp; Teaching</p>
               <p class="timeline-text">
-                Seven years at AXA in analytics and AI, 11 postgraduate programs,
-                professor at several business schools and author of a future book:
-                “Agentic Platforms for Marketing” (planned for 2027).
+                Seven years in AXA analytics &amp; AI; 10+ postgrads and master
+                programs; professor in business schools and author of books about
+                analytics and AI in marketing – with a new one planned for 2027.
               </p>
-              <p class="tagline">Where data, AI and storytelling converge.</p>
+              <p class="tagline">“AXA, AI &amp; Teaching.”</p>
+              <div class="timeline-media">
+                <img src="assets/book-ai-marketing.jpg"
+                     alt="Book cover about Artificial Intelligence for Marketing" />
+              </div>
             </article>
           </div>
         </div>
       </section>
 
       <footer>
-        Built as a personal experiment in storytelling, analytics and design.
-        Interested in the long version? <a href="#contact">Let’s talk.</a>
+        Built as a personal storytelling experiment.  
+        Want the long version? <a href="#contact">Let’s talk.</a>
       </footer>
     </section>
   </main>
+
+  <script>
+    (function () {
+      const scrollContainer = document.getElementById("timelineScroll");
+      const leftBtn = document.querySelector(".timeline-arrow--left");
+      const rightBtn = document.querySelector(".timeline-arrow--right");
+
+      function scrollByAmount(amount) {
+        if (!scrollContainer) return;
+        scrollContainer.scrollBy({ left: amount, behavior: "smooth" });
+      }
+
+      leftBtn.addEventListener("click", () => scrollByAmount(-320));
+      rightBtn.addEventListener("click", () => scrollByAmount(320));
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") scrollByAmount(-320);
+        if (e.key === "ArrowRight") scrollByAmount(320);
+      });
+    })();
+  </script>
 </body>
 </html>
