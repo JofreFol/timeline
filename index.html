@@ -451,13 +451,35 @@
             </div>
           </div>
 
-          <div class="audio-control">
-            <button id="audioToggle" class="audio-toggle" type="button" data-state="paused">
-              <span id="audioIcon" class="audio-toggle-icon">🔈</span>
-              <span id="audioLabel">Play background music</span>
-            </button>
-          </div>
-        </div>
+          <div class="audio-control" style="display:flex; gap:12px; align-items:center;">
+
+  <!-- TIMER BUTTON -->
+  <button id="startTimer" class="audio-toggle" type="button">
+    ⏱️ Start 5-min Timer
+  </button>
+
+  <!-- TIMER DISPLAY -->
+  <span id="timerDisplay"
+        style="
+          font-family: ui-monospace, monospace;
+          font-size: 0.9rem;
+          padding: 6px 12px;
+          border-radius: 999px;
+          background:#fff;
+          border:1px solid #e5e7eb;
+          color:#6b7280;
+          display:none;
+        ">
+    05:00
+  </span>
+
+  <!-- EXISTING AUDIO BUTTON -->
+  <button id="audioToggle" class="audio-toggle" type="button" data-state="paused">
+    <span id="audioIcon" class="audio-toggle-icon">🔈</span>
+    <span id="audioLabel">Play background music</span>
+  </button>
+</div>
+
 
         <p class="hero-subtitle">
           A flat-style timeline that connects being conceived in Madrid and born in Barcelona, childhood at the American School of Barcelona, 
@@ -735,6 +757,41 @@
         }
       });
     })();
+    // TIMER LOGIC
+(function () {
+  const startBtn = document.getElementById("startTimer");
+  const display = document.getElementById("timerDisplay");
+  let remaining = 300; // 5 minutes in seconds
+  let interval = null;
+
+  function updateDisplay() {
+    const mins = Math.floor(remaining / 60);
+    const secs = remaining % 60;
+    display.textContent = 
+      `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+
+    if (remaining <= 10) {
+      display.style.color = "#dc2626"; // red for last seconds
+      display.style.borderColor = "#dc262644";
+    }
+  }
+
+  startBtn.addEventListener("click", () => {
+    // Reset if restarted
+    remaining = 300;
+    updateDisplay();
+    display.style.color = "#6b7280";
+    display.style.display = "inline-block";
+
+    if (interval) clearInterval(interval);
+
+    interval = setInterval(() => {
+      remaining--;
+      updateDisplay();
+      if (remaining <= 0) clearInterval(interval);
+    }, 1000);
+  });
+})();
   </script>
 </body>
 </html>
