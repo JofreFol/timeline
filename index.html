@@ -48,6 +48,59 @@
       margin-bottom: 36px;
     }
 
+    /* top row with tag + timer + music */
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tag,
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: #fff;
+      border-radius: var(--radius-pill);
+      border: 1px solid #e5e7eb;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+      white-space: nowrap;
+    }
+
+    .hero-tag {
+      padding-inline: 16px;
+    }
+
+    .hero-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .meta-pill-button {
+      cursor: pointer;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    .meta-pill-button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(15,23,42,0.12);
+    }
+
+    .timer-display {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-weight: 600;
+      color: #111827;
+      display: none;
+    }
+
     .hero-top {
       display: flex;
       align-items: center;
@@ -86,27 +139,6 @@
       gap: 4px;
     }
 
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      background: #fff;
-      border-radius: var(--radius-pill);
-      border: 1px solid #e5e7eb;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-      align-self: flex-start;
-    }
-
-    .hero-tag-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
     .hero-title {
       font-size: clamp(2.1rem, 3vw + 1rem, 2.8rem);
       font-weight: 800;
@@ -119,36 +151,6 @@
       max-width: 780px;
       margin: 6px auto 0;
       text-align: center;
-    }
-
-    .audio-control {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    .audio-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      border-radius: var(--radius-pill);
-      border: 1px solid #e5e7eb;
-      background: #fff;
-      font-size: 0.78rem;
-      cursor: pointer;
-      color: var(--text-muted);
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
-    }
-
-    .audio-toggle-icon {
-      font-size: 1.1rem;
-    }
-
-    .audio-toggle[data-state="playing"] {
-      color: #16a34a;
-      border-color: #16a34a33;
     }
 
     /* TIMELINE */
@@ -437,53 +439,43 @@
   <main class="page">
     <section class="container">
       <header class="hero">
+
+        <!-- top pills row -->
+        <div class="hero-meta">
+          <div class="hero-tag">
+            <span class="hero-tag-dot"></span>
+            <span>Life timeline · Jofre Folch</span>
+          </div>
+
+          <button id="startTimer" class="meta-pill meta-pill-button" type="button">
+            ⏱️ Start 5-min timer
+          </button>
+
+          <span id="timerDisplay" class="meta-pill timer-display">
+            05:00
+          </span>
+
+          <button id="audioToggle" class="meta-pill meta-pill-button" type="button" data-state="paused">
+            <span id="audioIcon">🔈</span>
+            <span id="audioLabel">Play background music</span>
+          </button>
+        </div>
+
+        <!-- main hero row -->
         <div class="hero-top">
           <div class="hero-left">
             <div class="hero-logo">
               <img src="assets/jofre-blue.png" alt="Jofre Folch portrait" />
             </div>
             <div class="hero-title-block">
-              <div class="hero-tag">
-                <span class="hero-tag-dot"></span>
-                <span>Life timeline · Jofre Folch</span>
-              </div>
               <h1 class="hero-title">Jofre: From Dawn Into the Unwritten</h1>
             </div>
           </div>
-
-          <div class="audio-control" style="display:flex; gap:12px; align-items:center;">
-
-  <!-- TIMER BUTTON -->
-  <button id="startTimer" class="audio-toggle" type="button">
-    ⏱️ Start 5-min Timer
-  </button>
-
-  <!-- TIMER DISPLAY -->
-  <span id="timerDisplay"
-        style="
-          font-family: ui-monospace, monospace;
-          font-size: 0.9rem;
-          padding: 6px 12px;
-          border-radius: 999px;
-          background:#fff;
-          border:1px solid #e5e7eb;
-          color:#6b7280;
-          display:none;
-        ">
-    05:00
-  </span>
-
-  <!-- EXISTING AUDIO BUTTON -->
-  <button id="audioToggle" class="audio-toggle" type="button" data-state="paused">
-    <span id="audioIcon" class="audio-toggle-icon">🔈</span>
-    <span id="audioLabel">Play background music</span>
-  </button>
-</div>
-
+        </div>
 
         <p class="hero-subtitle">
           A flat-style timeline that connects being conceived in Madrid and born in Barcelona, childhood at the American School of Barcelona, 
-          the army, university, entrepreneurship, my connection with Maradona, family life, and the AXA & AI chapter.
+          the army, university, entrepreneurship, my connection with Maradona, family life, and the AXA &amp; AI chapter.
         </p>
       </header>
 
@@ -609,7 +601,6 @@
                   Nicolau Casaus, with whom my family had direct contact and conversations.
                 </p>
 
-                <!-- DOS FOTOS: MARADONA Y TU FOTO CON CASAUS -->
                 <div class="image-grid">
                   <button class="image-button"
                           data-full="assets/nicolas2-maradona.avif"
@@ -675,7 +666,7 @@
       </section>
 
       <footer>
-        Built as a personal storytelling infographic. Powered by nostalgia, pixels, and questionable life choices..
+        Built as a personal storytelling infographic. Powered by nostalgia, pixels, and questionable life choices.
       </footer>
     </section>
   </main>
@@ -689,12 +680,11 @@
     </div>
   </div>
 
-  <!-- AUDIO (música de fondo). 
-       Sube un archivo a assets/bg-music.mp3: por ejemplo, lo-fi suave o jazz instrumental. -->
+  <!-- AUDIO (background music). Put a file in assets/bg-music.mp3 -->
   <audio id="bgMusic" src="assets/bg-music.mp3" loop></audio>
 
   <script>
-    // Lightbox para ver imágenes en grande
+    // Lightbox for images
     (function () {
       const buttons = document.querySelectorAll(".image-button");
       const lightbox = document.getElementById("lightbox");
@@ -757,41 +747,47 @@
         }
       });
     })();
-    // TIMER LOGIC
-(function () {
-  const startBtn = document.getElementById("startTimer");
-  const display = document.getElementById("timerDisplay");
-  let remaining = 300; // 5 minutes in seconds
-  let interval = null;
 
-  function updateDisplay() {
-    const mins = Math.floor(remaining / 60);
-    const secs = remaining % 60;
-    display.textContent = 
-      `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+    // 5-minute timer
+    (function () {
+      const startBtn = document.getElementById("startTimer");
+      const display = document.getElementById("timerDisplay");
+      let remaining = 300; // seconds
+      let interval = null;
 
-    if (remaining <= 10) {
-      display.style.color = "#dc2626"; // red for last seconds
-      display.style.borderColor = "#dc262644";
-    }
-  }
+      function updateDisplay() {
+        const mins = Math.floor(remaining / 60);
+        const secs = remaining % 60;
+        display.textContent =
+          `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 
-  startBtn.addEventListener("click", () => {
-    // Reset if restarted
-    remaining = 300;
-    updateDisplay();
-    display.style.color = "#6b7280";
-    display.style.display = "inline-block";
+        if (remaining <= 10) {
+          display.style.color = "#dc2626";
+          display.style.borderColor = "#dc262644";
+        } else {
+          display.style.color = "#111827";
+          display.style.borderColor = "#e5e7eb";
+        }
+      }
 
-    if (interval) clearInterval(interval);
+      if (!startBtn || !display) return;
 
-    interval = setInterval(() => {
-      remaining--;
-      updateDisplay();
-      if (remaining <= 0) clearInterval(interval);
-    }, 1000);
-  });
-})();
+      startBtn.addEventListener("click", () => {
+        remaining = 300;
+        updateDisplay();
+        display.style.display = "inline-flex";
+
+        if (interval) clearInterval(interval);
+
+        interval = setInterval(() => {
+          remaining--;
+          updateDisplay();
+          if (remaining <= 0) {
+            clearInterval(interval);
+          }
+        }, 1000);
+      });
+    })();
   </script>
 </body>
 </html>
