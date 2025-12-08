@@ -45,8 +45,45 @@
     /* HERO */
 
     header.hero {
-      text-align: center;
       margin-bottom: 36px;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .hero-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+      border: 2px solid #e5e7eb;
+      flex-shrink: 0;
+      background: #fff;
+    }
+
+    .hero-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .hero-tag {
@@ -59,7 +96,8 @@
       border: 1px solid #e5e7eb;
       font-size: 0.78rem;
       color: var(--text-muted);
-      margin-bottom: 10px;
+      margin-bottom: 2px;
+      align-self: flex-start;
     }
 
     .hero-tag-dot {
@@ -73,14 +111,44 @@
       font-size: clamp(2.1rem, 3vw + 1rem, 2.8rem);
       font-weight: 800;
       letter-spacing: 0.03em;
-      margin-bottom: 6px;
     }
 
     .hero-subtitle {
       font-size: 0.95rem;
       color: var(--text-muted);
       max-width: 780px;
-      margin: 0 auto;
+      margin: 6px auto 0;
+      text-align: center;
+    }
+
+    .audio-control {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .audio-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      font-size: 0.78rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    .audio-toggle-icon {
+      font-size: 1.1rem;
+    }
+
+    .audio-toggle[data-state="playing"] {
+      color: #16a34a;
+      border-color: #16a34a33;
     }
 
     /* TIMELINE */
@@ -256,6 +324,17 @@
       transform: scale(1.05);
     }
 
+    /* centrado para Luc y Soldier */
+    .image-center {
+      width: 75%;
+      max-width: 180px;
+      margin: 8px auto 0;
+    }
+
+    .image-center img {
+      height: auto;
+    }
+
     .image-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -318,6 +397,11 @@
     }
 
     @media (max-width: 768px) {
+      .hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .timeline {
         flex-direction: column;
         min-width: 0;
@@ -353,11 +437,28 @@
   <main class="page">
     <section class="container">
       <header class="hero">
-        <div class="hero-tag">
-          <span class="hero-tag-dot"></span>
-          <span>Life timeline · Jofre Folch</span>
+        <div class="hero-top">
+          <div class="hero-left">
+            <div class="hero-logo">
+              <img src="assets/jofre-blue.png" alt="Jofre Folch portrait" />
+            </div>
+            <div class="hero-title-block">
+              <div class="hero-tag">
+                <span class="hero-tag-dot"></span>
+                <span>Life timeline · Jofre Folch</span>
+              </div>
+              <h1 class="hero-title">From Gran Vía to Generative AI</h1>
+            </div>
+          </div>
+
+          <div class="audio-control">
+            <button id="audioToggle" class="audio-toggle" type="button" data-state="paused">
+              <span id="audioIcon" class="audio-toggle-icon">🔈</span>
+              <span id="audioLabel">Play background music</span>
+            </button>
+          </div>
         </div>
-        <h1 class="hero-title">From Gran Vía to Generative AI</h1>
+
         <p class="hero-subtitle">
           A flat-style timeline that connects a unique birth in Madrid, childhood at the American School of Barcelona,
           the army, university, entrepreneurship, Maradona and Nicolau Casaus, family life, and the AXA &amp; AI chapter.
@@ -382,7 +483,6 @@
                   Born in Barcelona, but with Room 301 as the unofficial prologue.
                 </p>
 
-                <!-- CAMBIA EL NOMBRE DEL FICHERO SI ES OTRO -->
                 <button class="image-button"
                         data-full="assets/origins-hotel.webp"
                         data-caption="Hotel Rex on Gran Vía, Madrid – the unconventional beginning.">
@@ -403,7 +503,6 @@
                   Childhood at the American School of Barcelona, in an international environment            
                 </p>
 
-                <!-- CAMBIA EL NOMBRE DEL FICHERO SI ES OTRO -->
                 <button class="image-button"
                         data-full="assets/asb1.png"
                         data-caption="American School of Barcelona.">
@@ -425,7 +524,7 @@
                   combining security duties with the very real responsibility of the kitchen and canteen.
                 </p>
 
-                <button class="image-button"
+                <button class="image-button image-center"
                         data-full="assets/jofre-soldier3.jpg"
                         data-caption="Jofre during Military Police service.">
                   <img src="assets/jofre-soldier3.jpg" alt="Jofre Folch during military service" />
@@ -467,7 +566,6 @@
                   Grew to 20 employees and spent years travelling between language labs and corporate campuses.
                 </p>
 
-                <!-- CAMBIA EL NOMBRE DEL FICHERO SI ES OTRO -->
                 <button class="image-button"
                         data-full="assets/ibm2.jpeg"
                         data-caption="IBM logo – one of the first big clients.">
@@ -521,7 +619,7 @@
                   for brands such as Intel, SEAT and Nestlé – while family life (and Luc) balanced everything.
                 </p>
 
-                <button class="image-button"
+                <button class="image-button image-center"
                         data-full="assets/luc2.jpg"
                         data-caption="Luc, partner in many walks and decisions.">
                   <img src="assets/luc2.jpg" alt="Luc, Jofre's dog" />
@@ -542,7 +640,6 @@
                   business-school professor and author of books on analytics and AI – with a new one coming in 2027.
                 </p>
 
-                <!-- CAMBIA EL NOMBRE DEL FICHERO SI ES OTRO -->
                 <button class="image-button"
                         data-full="assets/jofre-eae.jpg"
                         data-caption="Artificial Intelligence for Marketing – one of the books.">
@@ -556,7 +653,8 @@
       </section>
 
       <footer>
-        Built as a personal storytelling infographic. If you want the long version, just ask.
+        Built as a personal storytelling infographic. Background suggestion:
+        soft lo-fi or jazz instrumental, calm and slightly nostalgic.
       </footer>
     </section>
   </main>
@@ -569,6 +667,10 @@
       <div id="lightboxCaption" class="lightbox-caption"></div>
     </div>
   </div>
+
+  <!-- AUDIO (música de fondo). 
+       Sube un archivo a assets/bg-music.mp3: por ejemplo, lo-fi suave o jazz instrumental. -->
+  <audio id="bgMusic" src="assets/bg-music.mp3" loop></audio>
 
   <script>
     // Lightbox para ver imágenes en grande
@@ -603,6 +705,34 @@
       window.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && lightbox.classList.contains("visible")) {
           closeLightbox();
+        }
+      });
+    })();
+
+    // Audio toggle
+    (function () {
+      const audio = document.getElementById("bgMusic");
+      const toggle = document.getElementById("audioToggle");
+      const icon = document.getElementById("audioIcon");
+      const label = document.getElementById("audioLabel");
+
+      if (!audio || !toggle) return;
+
+      toggle.addEventListener("click", async () => {
+        try {
+          if (audio.paused) {
+            await audio.play();
+            toggle.dataset.state = "playing";
+            icon.textContent = "🔊";
+            label.textContent = "Pause background music";
+          } else {
+            audio.pause();
+            toggle.dataset.state = "paused";
+            icon.textContent = "🔈";
+            label.textContent = "Play background music";
+          }
+        } catch (err) {
+          console.error("Audio play error:", err);
         }
       });
     })();
