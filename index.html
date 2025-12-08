@@ -752,7 +752,7 @@
     (function () {
       const startBtn = document.getElementById("startTimer");
       const display = document.getElementById("timerDisplay");
-      let remaining = 300; // seconds
+      let remaining = 600; // seconds
       let interval = null;
 
       function updateDisplay() {
@@ -773,7 +773,7 @@
       if (!startBtn || !display) return;
 
       startBtn.addEventListener("click", () => {
-        remaining = 300;
+        remaining = 600;
         updateDisplay();
         display.style.display = "inline-flex";
 
