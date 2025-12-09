@@ -850,6 +850,29 @@
         }, 1000);
       });
     })();
+    /* ⭐ NUEVO BLOQUE: Scroll Reveal para timeline */
+  (function () {
+    const items = document.querySelectorAll(".timeline-item");
+
+    if (!("IntersectionObserver" in window) || items.length === 0) {
+      items.forEach(i => i.classList.add("visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target); // solo se anima una vez
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    items.forEach(item => observer.observe(item));
+  })();
   </script>
 </body>
 </html>
