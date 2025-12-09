@@ -42,6 +42,23 @@
 
     .container { width: 100%; max-width: var(--max-width); }
 
+    /* Dark mode: override de variables y fondo */
+body.dark-mode {
+  --bg: #020617;
+  --line: #334155;
+  --accent: #f97316;
+  --accent-alt: #38bdf8;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --card-bg: #020617;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Fondo específico cuando está en dark mode */
+body.dark-mode {
+  background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
+}
+
     /* HERO */
 
     header.hero {
@@ -491,6 +508,11 @@
             <span id="audioIcon">🔈</span>
             <span id="audioLabel">Play background music</span>
           </button>
+         
+          <button id="themeToggle" class="meta-pill meta-pill-button" type="button" data-theme="light">
+    <span id="themeIcon">🌙</span>
+    <span id="themeLabel">Dark mode</span>
+  </button>
         </div>
 
         <!-- main hero row -->
